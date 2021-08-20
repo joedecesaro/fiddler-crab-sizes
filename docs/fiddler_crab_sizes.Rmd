@@ -13,19 +13,20 @@ library(kableExtra)
 library(ggbeeswarm)
 ```
 
-Data Read in
-```{r, echo=FALSE}
+```{r, include=FALSE}
 body_sizes <- read_csv(here("data", "HTL-MAR-FiddlerCrabBodySize.csv"))
 ```
 
-Our excellent plot
+Bergmann’s rule predicts that organisms at higher latitudes are larger than ones at lower latitudes. Bergmann's Rule can be observed in fiddler crab carapace width data collected along the United States Atlantic coast (Johnson 2019). The below figure shows a general trend of increases carapace widths with increasing latitudes.
+
 ```{r, alt = "Crab carapace size increases with latitude in Eastern US salt marshes.", echo=FALSE}
 ggplot(data = body_sizes, aes(x= Latitude, y= carapace_width)) +
   geom_jitter(aes(color = Latitude)) +
   labs(title = "Fiddler crab size by latitude", x = "Latitude (degrees)", y= "Carapace width (mm)", caption = "At higher latitudes, fiddler crabs have a higher carapace width due to Bergmann's rule.")
 ```
 
-Lets make a table
+The below table shows a summary of the data collected at each site (by ID), including the total sample size for each site.
+
 ```{r, echo=FALSE}
 body_size_table <- body_sizes %>% 
   group_by(Site) %>% 
@@ -41,7 +42,7 @@ body_size_table %>%
 ```
 
 
-Next plot
+Generally speaking, higher latitude waters tend to have colder mean temperatures. This contiues to show the correlation between latitude and carapace width. The box plot is included to show that there is still variation within this correlation, expecially the 14.01 Celcius site.
 
 ```{r, echo=FALSE, alt= "Bigger crabs live in colder water."}
 body_sizes = body_sizes %>% 
@@ -54,3 +55,5 @@ ggplot(data = body_sizes, aes(x= MATW_f, y= carapace_width)) +
   labs(title = "Fiddler crab carapace width by water temperature", x= "Mean Annual Water Temps (degrees C)", y= "Carapace width (mm)", caption = "Slight negative correlation between mean annual water temperature and carapace width.")
 ```
 
+Citation: 
+Johnson, D. 2019. Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. ver 1. Environmental Data Initiative. https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb (Accessed 2021-08-20).
