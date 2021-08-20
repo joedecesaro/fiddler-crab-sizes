@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(here)
 library(tidyverse)
 library(kableExtra)
+library(ggbeeswarm)
 ```
 
 Data Read in
@@ -37,5 +38,19 @@ body_size_table %>%
                       Width (mm)", "Standard Deviation (mm)", "Sample Size"),
         caption = "Mean carapace width in mm, standard deviation (mm), and crab sample size at each site to test Bergmann's Rule.") %>% 
   kable_classic(full_width = FALSE)
+```
+
+
+Next plot
+
+```{r, echo=FALSE, alt= "Bigger crabs live in colder water."}
+body_sizes = body_sizes %>% 
+  mutate(MATW_f = as_factor(MATW))
+
+ggplot(data = body_sizes, aes(x= MATW_f, y= carapace_width)) +
+  geom_beeswarm() +
+  geom_boxplot(aes(MATW_f), alpha = 0.3, fill = "green") +
+  theme_bw() +
+  labs(title = "Fiddler crab carapace width by water temperature", x= "Mean Annual Water Temps (degrees C)", y= "Carapace width (mm)", caption = "Slight negative correlation between mean annual water temperature and carapace width.")
 ```
 
