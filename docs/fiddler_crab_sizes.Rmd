@@ -1,0 +1,18 @@
+---
+title: "fiddler-crab-sizes"
+author: "Joe DeCesaro"
+date: "8/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(tidyverse)
+```
+
+Data Read in
+```{r}
+body_sizes <- read_csv(here("data", "HTL-MAR-FiddlerCrabBodySize.csv"))
+```
+
