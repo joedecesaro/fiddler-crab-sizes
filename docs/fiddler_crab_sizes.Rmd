@@ -12,7 +12,14 @@ library(tidyverse)
 ```
 
 Data Read in
-```{r}
+```{r, echo=FALSE}
 body_sizes <- read_csv(here("data", "HTL-MAR-FiddlerCrabBodySize.csv"))
+```
+
+Our excellent plot
+```{r, alt = "Crab carapace size increases with latitude in Eastern US salt marshes.", echo=FALSE}
+ggplot(data = body_sizes, aes(x= Latitude, y= carapace_width)) +
+  geom_jitter(aes(color = Latitude)) +
+  labs(title = "Fiddler crab size by latitude", x = "Latitude (degrees)", y= "Carapace width (mm)", caption = "At higher latitudes, fiddler crabs have a higher carapace width due to Bergmann's rule.")
 ```
 
