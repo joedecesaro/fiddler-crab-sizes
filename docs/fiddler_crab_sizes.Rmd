@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(here)
 library(tidyverse)
+library(kableExtra)
 ```
 
 Data Read in
@@ -21,5 +22,20 @@ Our excellent plot
 ggplot(data = body_sizes, aes(x= Latitude, y= carapace_width)) +
   geom_jitter(aes(color = Latitude)) +
   labs(title = "Fiddler crab size by latitude", x = "Latitude (degrees)", y= "Carapace width (mm)", caption = "At higher latitudes, fiddler crabs have a higher carapace width due to Bergmann's rule.")
+```
+
+Lets make a table
+```{r, echo=FALSE}
+body_size_table <- body_sizes %>% 
+  group_by(Site) %>% 
+  summarize(Mean = round(mean(carapace_width), 2),
+            Standard_Deviation = round(sd(carapace_width), 2),
+            Sample_Size = n())
+
+body_size_table %>% 
+  kable(col.names = c("Site ID", "Mean Carapace 
+                      Width (mm)", "Standard Deviation (mm)", "Sample Size"),
+        caption = "Mean carapace width in mm, standard deviation (mm), and crab sample size at each site to test Bergmann's Rule.") %>% 
+  kable_classic(full_width = FALSE)
 ```
 
